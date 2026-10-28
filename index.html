@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chicklist for mediterm RM and NT module</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #58111A; --primary-dark: #3B0B11; --primary-light: #7A1C28;
+            --accent: #E5A93C; --accent-hover: #C98E2A; --accent-light: #FFF8E7;
+            --bg-color: #FBF8F5; --card-bg: #FFFFFF; --text-dark: #2A1810; --text-muted: #6B5B52;
+            --completed-green: #2E7D32; --pending-red: #C62828; --border-radius: 14px;
+            --border-color: #EFE4DC; --btn-btn1-bg: #7A1C28; --btn-btn2-bg: #E5A93C; --btn-btn2-color: #2A1810;
+        }
+        [data-theme="sky"] { --primary:#1E3A8A; --primary-dark:#172554; --primary-light:#2563EB; --accent:#38BDF8; --accent-hover:#0284C7; --accent-light:#F0F9FF; --bg-color:#F8FAFC; --card-bg:#FFFFFF; --text-dark:#0F172A; --text-muted:#475569; --completed-green:#15803D; --pending-red:#B91C1C; --border-color:#E2E8F0; --btn-btn1-bg:#1E3A8A; --btn-btn2-bg:#38BDF8; --btn-btn2-color:#0F172A; }
+        [data-theme="rose"] { --primary:#9F1239; --primary-dark:#4C0519; --primary-light:#E11D48; --accent:#FB7185; --accent-hover:#F43F5E; --accent-light:#FFF1F2; --bg-color:#FFF5F7; --card-bg:#FFFFFF; --text-dark:#27272A; --text-muted:#52525B; --completed-green:#047857; --pending-red:#BE123C; --border-color:#FFE4E6; --btn-btn1-bg:#9F1239; --btn-btn2-bg:#FB7185; --btn-btn2-color:#FFFFFF; }
+        [data-theme="brown"] { --primary:#4A2E2B; --primary-dark:#2D1B19; --primary-light:#6F423D; --accent:#A67B5B; --accent-hover:#8C5A3C; --accent-light:#FDFBF7; --bg-color:#F7F3EF; --card-bg:#FFFFFF; --text-dark:#1F1412; --text-muted:#594440; --completed-green:#2D6A4F; --pending-red:#9A031E; --border-color:#E8DFD8; --btn-btn1-bg:#4A2E2B; --btn-btn2-bg:#A67B5B; --btn-btn2-color:#FFFFFF; }
+        [data-theme="green"] { --primary:#14532D; --primary-dark:#052E16; --primary-light:#166534; --accent:#4ADE80; --accent-hover:#22C55E; --accent-light:#F0FDF4; --bg-color:#F4FBF7; --card-bg:#FFFFFF; --text-dark:#052E16; --text-muted:#3F6212; --completed-green:#15803D; --pending-red:#991B1B; --border-color:#DCFCE7; --btn-btn1-bg:#14532D; --btn-btn2-bg:#4ADE80; --btn-btn2-color:#052E16; }
+        [data-theme="purple"] { --primary:#6D28D9; --primary-dark:#3B0764; --primary-light:#8B5CF6; --accent:#C4B5FD; --accent-hover:#A78BFA; --accent-light:#F5F3FF; --bg-color:#FAF8FF; --card-bg:#FFFFFF; --text-dark:#2E1065; --text-muted:#6B5B83; --completed-green:#15803D; --pending-red:#BE123C; --border-color:#E9D5FF; --btn-btn1-bg:#6D28D9; --btn-btn2-bg:#C4B5FD; --btn-btn2-color:#2E1065; }
+        [data-theme="teal"] { --primary:#0F766E; --primary-dark:#134E4A; --primary-light:#14B8A6; --accent:#5EEAD4; --accent-hover:#2DD4BF; --accent-light:#F0FDFA; --bg-color:#F3FCFA; --card-bg:#FFFFFF; --text-dark:#134E4A; --text-muted:#4B6B67; --completed-green:#15803D; --pending-red:#B91C1C; --border-color:#CCFBF1; --btn-btn1-bg:#0F766E; --btn-btn2-bg:#5EEAD4; --btn-btn2-color:#134E4A; }
+        [data-theme="orange"] { --primary:#C2410C; --primary-dark:#7C2D12; --primary-light:#EA580C; --accent:#FDBA74; --accent-hover:#FB923C; --accent-light:#FFF7ED; --bg-color:#FFFAF5; --card-bg:#FFFFFF; --text-dark:#431407; --text-muted:#7C5A4A; --completed-green:#15803D; --pending-red:#B91C1C; --border-color:#FED7AA; --btn-btn1-bg:#C2410C; --btn-btn2-bg:#FDBA74; --btn-btn2-color:#431407; }
+        [data-theme="midnight"] { --primary:#334155; --primary-dark:#0F172A; --primary-light:#475569; --accent:#FBBF24; --accent-hover:#F59E0B; --accent-light:#F8FAFC; --bg-color:#F1F5F9; --card-bg:#FFFFFF; --text-dark:#0F172A; --text-muted:#475569; --completed-green:#15803D; --pending-red:#B91C1C; --border-color:#CBD5E1; --btn-btn1-bg:#334155; --btn-btn2-bg:#FBBF24; --btn-btn2-color:#0F172A; }
+        [data-theme="lavender"] { --primary:#7C3AED; --primary-dark:#4C1D95; --primary-light:#A78BFA; --accent:#F0ABFC; --accent-hover:#E879F9; --accent-light:#FDF4FF; --bg-color:#FFFAFF; --card-bg:#FFFFFF; --text-dark:#3B0764; --text-muted:#7E638C; --completed-green:#15803D; --pending-red:#BE123C; --border-color:#F5D0FE; --btn-btn1-bg:#7C3AED; --btn-btn2-bg:#F0ABFC; --btn-btn2-color:#3B0764; }
+        [data-theme="ocean"] { --primary:#0369A1; --primary-dark:#082F49; --primary-light:#0284C7; --accent:#67E8F9; --accent-hover:#22D3EE; --accent-light:#ECFEFF; --bg-color:#F0FAFF; --card-bg:#FFFFFF; --text-dark:#082F49; --text-muted:#476779; --completed-green:#15803D; --pending-red:#B91C1C; --border-color:#BAE6FD; --btn-btn1-bg:#0369A1; --btn-btn2-bg:#67E8F9; --btn-btn2-color:#082F49; }
+        [data-theme="olive"] { --primary:#4D7C0F; --primary-dark:#283618; --primary-light:#65A30D; --accent:#D9ED92; --accent-hover:#B5CC65; --accent-light:#F7FCE8; --bg-color:#FAFDF2; --card-bg:#FFFFFF; --text-dark:#283618; --text-muted:#66734D; --completed-green:#3F6212; --pending-red:#B91C1C; --border-color:#E2EAC0; --btn-btn1-bg:#4D7C0F; --btn-btn2-bg:#D9ED92; --btn-btn2-color:#283618; }
+        [data-theme="slate"] { --primary:#475569; --primary-dark:#1E293B; --primary-light:#64748B; --accent:#CBD5E1; --accent-hover:#94A3B8; --accent-light:#F8FAFC; --bg-color:#F8FAFC; --card-bg:#FFFFFF; --text-dark:#1E293B; --text-muted:#64748B; --completed-green:#15803D; --pending-red:#B91C1C; --border-color:#E2E8F0; --btn-btn1-bg:#475569; --btn-btn2-bg:#CBD5E1; --btn-btn2-color:#1E293B; }
+        [data-theme="mint"] { --primary:#047857; --primary-dark:#064E3B; --primary-light:#10B981; --accent:#A7F3D0; --accent-hover:#6EE7B7; --accent-light:#ECFDF5; --bg-color:#F3FCF7; --card-bg:#FFFFFF; --text-dark:#064E3B; --text-muted:#4B7061; --completed-green:#15803D; --pending-red:#B91C1C; --border-color:#D1FAE5; --btn-btn1-bg:#047857; --btn-btn2-bg:#A7F3D0; --btn-btn2-color:#064E3B; }
+        [data-theme="cherry"] { --primary:#BE123C; --primary-dark:#881337; --primary-light:#E11D48; --accent:#FDA4AF; --accent-hover:#FB7185; --accent-light:#FFF1F2; --bg-color:#FFF7F8; --card-bg:#FFFFFF; --text-dark:#4C0519; --text-muted:#8A5363; --completed-green:#15803D; --pending-red:#9F1239; --border-color:#FFE4E6; --btn-btn1-bg:#BE123C; --btn-btn2-bg:#FDA4AF; --btn-btn2-color:#4C0519; }
+        [data-theme="sand"] { --primary:#92400E; --primary-dark:#78350F; --primary-light:#B45309; --accent:#FCD34D; --accent-hover:#FBBF24; --accent-light:#FFFBEB; --bg-color:#FFFCF3; --card-bg:#FFFFFF; --text-dark:#451A03; --text-muted:#78624D; --completed-green:#15803D; --pending-red:#B91C1C; --border-color:#FDE68A; --btn-btn1-bg:#92400E; --btn-btn2-bg:#FCD34D; --btn-btn2-color:#451A03; }
+        [data-theme="ice"] { --primary:#0E7490; --primary-dark:#164E63; --primary-light:#0891B2; --accent:#A5F3FC; --accent-hover:#67E8F9; --accent-light:#ECFEFF; --bg-color:#F4FCFF; --card-bg:#FFFFFF; --text-dark:#164E63; --text-muted:#527783; --completed-green:#15803D; --pending-red:#B91C1C; --border-color:#CFFAFE; --btn-btn1-bg:#0E7490; --btn-btn2-bg:#A5F3FC; --btn-btn2-color:#164E63; }
+        [data-mode="dark"] { --bg-color:#000000 !important; --card-bg:#121212 !important; --text-dark:#F5F5F5 !important; --text-muted:#A0A0A0 !important; --border-color:#262626 !important; --accent-light:rgba(255,255,255,.06) !important; --primary-dark:#050505 !important; }
+        * { box-sizing:border-box; font-family:'Tajawal',sans-serif; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+        body { background-color:var(--bg-color); color:var(--text-dark); padding:20px 12px 60px; direction:rtl; min-height:100vh; display:flex; flex-direction:column; justify-content:space-between; transition:background-color .3s,color .3s; }
+        .container { max-width:900px; margin:0 auto; width:100%; }
+        header { text-align:center; margin-bottom:20px; padding:22px 18px; background:linear-gradient(135deg,var(--primary-dark),var(--primary)); border-radius:var(--border-radius); box-shadow:0 8px 20px rgba(0,0,0,.4); color:#FFF; border-bottom:4px solid var(--accent); position:relative; }
+        header h1 { font-size:1.8rem; font-weight:800; color:var(--accent); margin-bottom:6px; text-shadow:0 2px 4px rgba(0,0,0,.5); }
+        header p { color:#E2D5D5; font-size:.95rem; }
+        .theme-selector { display:flex; justify-content:center; gap:8px; margin-top:15px; flex-wrap:wrap; align-items:center; }
+        .theme-btn { border:none; padding:6px 12px; border-radius:20px; font-size:1.1rem; cursor:pointer; background:rgba(255,255,255,.15); transition:all .2s ease; }
+        .theme-btn.active,.theme-btn:hover { background:var(--accent); transform:scale(1.1); }
+        .mode-toggle-btn,.pdf-export-btn { background:var(--accent); color:var(--primary-dark); border:none; padding:6px 14px; border-radius:20px; font-weight:800; font-size:.85rem; cursor:pointer; box-shadow:0 3px 10px rgba(0,0,0,.3); transition:transform .2s; }
+        .mode-toggle-btn:hover,.pdf-export-btn:hover { transform:scale(1.03); }
+        .overall-progress-card { background:var(--card-bg); border-radius:var(--border-radius); padding:18px 20px; margin-bottom:20px; box-shadow:0 4px 15px rgba(0,0,0,.1); border:1px solid var(--border-color); }
+        .progress-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; font-weight:700; font-size:.95rem; color:var(--primary); }
+        [data-mode="dark"] .progress-header { color:var(--accent); }
+        .progress-bar-bg { height:12px; background:rgba(128,128,128,.2); border-radius:10px; overflow:hidden; }
+        .progress-bar-fill { height:100%; background:linear-gradient(90deg,var(--accent),var(--accent-hover)); width:0%; transition:width .4s ease; border-radius:10px; }
+        .action-buttons-container { display:flex; gap:12px; margin-bottom:20px; flex-direction:column; }
+        @media (min-width:500px) { .action-buttons-container { flex-direction:row; } }
+        .btn-custom { flex:1; padding:14px 20px; border:none; border-radius:var(--border-radius); font-size:1.05rem; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; box-shadow:0 4px 12px rgba(0,0,0,.2); transition:transform .2s,box-shadow .2s; }
+        .btn-custom:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,.3); }
+        .btn-system { background-color:var(--btn-btn1-bg); color:#FFF; } .btn-standalone { background-color:var(--btn-btn2-bg); color:var(--btn-btn2-color,#FFF); }
+        .modules-nav { display:flex; gap:8px; overflow-x:auto; padding-bottom:10px; margin-bottom:20px; scrollbar-width:thin; scrollbar-color:var(--accent) transparent; }
+        .module-tab { background:var(--card-bg); color:var(--primary); border:1.5px solid var(--primary-light); padding:8px 16px; border-radius:20px; font-weight:700; font-size:.9rem; cursor:pointer; white-space:nowrap; transition:all .2s ease; display:flex; align-items:center; gap:8px; }
+        [data-mode="dark"] .module-tab { color:var(--text-dark); border-color:var(--border-color); }
+        .module-tab.active,.module-tab:hover { background:var(--primary); color:var(--accent); border-color:var(--primary); box-shadow:0 4px 10px rgba(0,0,0,.3); }
+        .section-title { font-size:1.2rem; font-weight:800; color:var(--primary); margin:20px 0 12px; padding-right:12px; border-right:4px solid var(--accent); display:flex; align-items:center; justify-content:space-between; gap:8px; }
+        [data-mode="dark"] .section-title { color:var(--accent); }
+        .subjects-grid { display:flex; flex-direction:column; gap:12px; }
+        .subject-card { background:var(--card-bg); border-radius:var(--border-radius); box-shadow:0 2px 8px rgba(0,0,0,.1); overflow:hidden; transition:all .2s ease; border:1px solid var(--border-color); }
+        .subject-header { padding:16px 18px; display:flex; justify-content:space-between; align-items:center; gap:10px; cursor:pointer; background:var(--card-bg); user-select:none; transition:background .2s; }
+        .subject-header:hover { background:var(--accent-light); }
+        .subject-title { font-size:1rem; font-weight:700; color:var(--text-dark); display:flex; align-items:center; gap:8px; }
+        .subject-stats { display:flex; gap:8px; align-items:center; font-size:.8rem; flex-wrap:wrap; }
+        .badge { padding:3px 9px; border-radius:12px; font-weight:700; white-space:nowrap; }
+        .badge-completed { background:rgba(46,125,50,.2); color:#4CAF50; } .badge-pending { background:rgba(198,40,40,.2); color:#EF5350; }
+        .edit-icon { cursor:pointer; font-size:.85rem; opacity:.7; transition:opacity .2s; margin-right:4px; } .edit-icon:hover { opacity:1; }
+        .lectures-list { display:none; padding:10px 18px 15px; background:rgba(255,255,255,.015); border-top:1px solid var(--border-color); }
+        .subject-card.active .lectures-list { display:block; }
+        .lecture-item-wrapper { padding:10px 0; border-bottom:1px dashed var(--border-color); } .lecture-item-wrapper:last-child { border-bottom:none; }
+        .lecture-item { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+        .lecture-info { display:flex; align-items:center; gap:10px; flex:1; min-width:0; }
+        .lecture-checkbox { width:19px; height:19px; cursor:pointer; accent-color:var(--accent); border-radius:4px; flex-shrink:0; }
+        .lecture-title { font-size:.92rem; color:var(--text-dark); font-weight:600; overflow-wrap:anywhere; } .lecture-title.done { text-decoration:line-through; opacity:.45; }
+        .lecture-actions { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+        .status-tag { font-size:.75rem; font-weight:700; white-space:nowrap; } .status-tag.done { color:#4CAF50; } .status-tag.pending { color:#EF5350; }
+        .lecture-note-box { margin-top:6px; margin-right:28px; font-size:.82rem; color:var(--text-muted); background:var(--accent-light); padding:4px 10px; border-radius:6px; display:flex; align-items:center; justify-content:space-between; gap:8px; border-right:3px solid var(--accent); overflow-wrap:anywhere; }
+        .delete-btn { background:none; border:none; cursor:pointer; font-size:.85rem; opacity:.6; transition:opacity .2s; padding:2px 4px; } .delete-btn:hover { opacity:1; }
+        .card-controls { display:flex; gap:8px; margin-top:12px; padding-top:8px; border-top:1px solid var(--border-color); flex-wrap:wrap; }
+        .btn-small { padding:5px 12px; font-size:.8rem; border-radius:8px; border:1px solid var(--border-color); background:var(--card-bg); color:var(--text-dark); cursor:pointer; font-weight:700; }
+        .btn-small:hover { background:var(--accent-light); }
+        .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.8); display:none; align-items:center; justify-content:center; z-index:1000; padding:15px; }
+        .modal { background:var(--card-bg); padding:22px; border-radius:var(--border-radius); max-width:450px; width:100%; box-shadow:0 10px 30px rgba(0,0,0,.5); border:1px solid var(--border-color); max-height:90vh; overflow:auto; }
+        .modal h3 { margin-bottom:15px; color:var(--primary); } [data-mode="dark"] .modal h3 { color:var(--accent); }
+        .form-group { margin-bottom:12px; } .form-group label { display:block; margin-bottom:4px; font-weight:600; font-size:.88rem; }
+        .form-control { width:100%; padding:10px; border-radius:8px; border:1px solid var(--border-color); background:var(--bg-color); color:var(--text-dark); font-size:.95rem; }
+        .modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:20px; }
+        .reset-btn { background:none; border:none; color:var(--text-muted); font-size:.8rem; cursor:pointer; margin-top:20px; text-decoration:underline; }
+        footer { margin-top:40px; text-align:center; padding:18px 10px; background:var(--primary-dark); border-radius:var(--border-radius); box-shadow:0 4px 15px rgba(0,0,0,.4); border-top:3px solid var(--accent); }
+        footer a { color:var(--accent); text-decoration:none; font-weight:800; font-size:1.05rem; display:inline-flex; align-items:center; gap:8px; transition:all .2s ease; } footer a:hover { color:#FFF; transform:translateY(-2px); }
+        @media (max-width:600px) { .subject-header { align-items:flex-start; flex-direction:column; } .subject-stats { padding-right:2px; } .lecture-item { align-items:flex-start; flex-direction:column; } .lecture-actions { padding-right:28px; } header h1 { font-size:1.45rem; } }
+        @media print { body { background:#FFF !important; color:#000 !important; padding:0 !important; } .theme-selector,.mode-toggle-btn,.pdf-export-btn,.action-buttons-container,.modules-nav,.reset-btn,.card-controls,.delete-btn,.edit-icon { display:none !important; } .subject-card { break-inside:avoid; border:1px solid #CCC !important; margin-bottom:12px !important; } .lectures-list { display:block !important; } header { background:#58111A !important; color:#FFF !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
+
+        .site-rights { text-align:center; margin-top:8px; color:var(--text-muted); font-size:.75rem; font-weight:400; letter-spacing:.2px; }
+        header { margin-bottom:12px; }
+        header h1 { font-family:'Montserrat',sans-serif; font-size:clamp(1.15rem,4vw,1.75rem); font-weight:600; letter-spacing:.25px; line-height:1.35; overflow-wrap:anywhere; }
+        header p { margin-top:6px; }
+        .toolbar-card { background:var(--card-bg); border:1px solid var(--border-color); border-radius:var(--border-radius); padding:12px 14px; margin-bottom:20px; box-shadow:0 4px 15px rgba(0,0,0,.08); }
+        .toolbar-card .theme-selector { margin-top:0; }
+        .toolbar-export { display:flex; justify-content:center; border-top:1px solid var(--border-color); margin-top:12px; padding-top:12px; }
+        .toolbar-export .pdf-export-btn { background:var(--primary); color:#fff; }
+        .module-header-actions { display:flex; align-items:center; gap:7px; flex-wrap:wrap; justify-content:flex-end; }
+        @media print { .toolbar-card { display:none !important; } }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Chicklist for mediterm RM and NT module</h1>
+    </header>
+    <div class="toolbar-card">
+        <div class="theme-selector">
+            <button class="theme-btn active" onclick="setTheme('burgundy')" title="خريفي وبرغندي">🍁</button>
+            <button class="theme-btn" onclick="setTheme('sky')" title="سمائي وأزرق">🌊</button>
+            <button class="theme-btn" onclick="setTheme('rose')" title="وردي فاتح وغامق">🌸</button>
+            <button class="theme-btn" onclick="setTheme('brown')" title="بني وقهوائي">☕</button>
+            <button class="theme-btn" onclick="setTheme('green')" title="أخضر فاتح وغامق">🌿</button>
+            <button class="theme-btn" onclick="setTheme('purple')" title="بنفسجي">💜</button>
+            <button class="theme-btn" onclick="setTheme('teal')" title="تركوازي">🩵</button>
+            <button class="theme-btn" onclick="setTheme('orange')" title="برتقالي">🍊</button>
+            <button class="theme-btn" onclick="setTheme('midnight')" title="ليلي ورمادي وذهبي">🌙</button>
+            <button class="theme-btn" onclick="setTheme('lavender')" title="لافندر">🪻</button>
+            <button class="theme-btn" onclick="setTheme('ocean')" title="محيطي">🐬</button>
+            <button class="theme-btn" onclick="setTheme('olive')" title="زيتوني">🫒</button>
+            <button class="theme-btn" onclick="setTheme('slate')" title="رمادي هادئ">🩶</button>
+            <button class="theme-btn" onclick="setTheme('mint')" title="نعناعي">🍃</button>
+            <button class="theme-btn" onclick="setTheme('cherry')" title="كرزي">🍒</button>
+            <button class="theme-btn" onclick="setTheme('sand')" title="رملي وذهبي">🏜️</button>
+            <button class="theme-btn" onclick="setTheme('ice')" title="جليدي">🧊</button>
+            <button class="mode-toggle-btn" id="modeBtn" onclick="toggleMode()">☀️ فاتح</button>
+        </div>
+        <div class="toolbar-export"><button class="pdf-export-btn" onclick="exportToPDF()">📄 Export / تصدير PDF</button></div>
+    </div>
+    <div class="overall-progress-card"><div class="progress-header"><span>📊 نسبة إنجاز RM | Research Methodology</span><span id="rmPercent">0%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" id="rmFill"></div></div></div>
+    <div class="overall-progress-card"><div class="progress-header"><span>🥗 نسبة إنجاز NT | Nutrition</span><span id="ntPercent">0%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" id="ntFill"></div></div></div>
+    <div class="action-buttons-container">
+        <button class="btn-custom btn-system" onclick="openSystemModal()"><span>إضافة سستم جديد</span> 🫀</button>
+        <button class="btn-custom btn-standalone" onclick="openStandaloneModal()"><span>إضافة مادة منفصلة</span> 📊</button>
+    </div>
+    <div class="modules-nav" id="modulesNav"></div>
+    <div id="modulesContainer"></div>
+
+
+    <div style="text-align:center;"><button class="reset-btn" onclick="resetToDefault()">إعادة ضبط القائمة الافتراضية للمرحلة الثالثة</button></div>
+</div>
+<div class="modal-overlay" id="systemModal"><div class="modal"><h3>🫀 إضافة سستم جديد</h3><div class="form-group"><label>اسم السستم (مثال: Cardiovascular System):</label><input type="text" id="sysName" class="form-control" placeholder="أدخل اسم السستم"></div><div class="form-group"><label>اسم المادة الأولى داخل السستم:</label><input type="text" id="sysSubName" class="form-control" placeholder="مثال: Anatomy"></div><div class="form-group"><label>عدد المحاضرات الأولية:</label><input type="number" id="sysLecCount" class="form-control" value="5" min="1"></div><div class="modal-actions"><button class="btn-small" onclick="closeModal('systemModal')">إلغاء</button><button class="btn-small" style="background:var(--accent);color:var(--primary-dark);" onclick="saveNewSystem()">إضافة السستم</button></div></div></div>
+<div class="modal-overlay" id="standaloneModal"><div class="modal"><h3>📊 إضافة مادة منفصلة جديدة</h3><div class="form-group"><label>اسم المادة المنفصلة (مثال: Biostatistics):</label><input type="text" id="standaloneName" class="form-control" placeholder="أدخل اسم المادة"></div><div class="form-group"><label>عدد محاضرات النظري:</label><input type="number" id="standaloneTheoryCount" class="form-control" value="10" min="0"></div><div class="form-group"><label>عدد محاضرات العملي / TBL (إن وجد):</label><input type="number" id="standalonePracCount" class="form-control" value="0" min="0"></div><div class="modal-actions"><button class="btn-small" onclick="closeModal('standaloneModal')">إلغاء</button><button class="btn-small" style="background:var(--accent);color:var(--primary-dark);" onclick="saveNewStandalone()">إضافة المادة</button></div></div></div>
+<footer><a href="https://t.me/medicinewithfunny" target="_blank" rel="noopener noreferrer">مشغل بواسطة: طب 🩺 وسد الباب🚪</a><div class="site-rights">جميع الحقوق محفوظة لـ Hus.Wi © 2026–2027</div></footer>
+<script>
+    const makeList = (prefix, count) => Array.from({length: Math.max(0, Math.min(1000, count))}, (_, i) => `${prefix}-${i + 1}`);
+    const makeLectureList = (items) => items.map(item => item);
+    const defaultModules = {
+        nt:{title:'NT | Nutrition',icon:'🥗',type:'system',sections:[
+            {name:'📚 Community Medicine',subjects:[{id:'nt_comm',name:'Community Medicine',lectures:makeLectureList([
+                'Lec-1 Introduction to nutrition','Lec-2 Vitamins and mineral P1','Lec-3 Vitamins and mineral P2','Lec-4 Organic Nutrient','Lec-5 Energy balance'
+            ])}]},
+            {name:'🧪 Biochemistry',subjects:[{id:'nt_biochem',name:'Biochemistry',lectures:makeLectureList([
+                'Lec-1 Dyslipidemia I','Lec-2 Dyslipidemia II','Lec-3 Dyslipidemia Biochemical cardiovascular risk markers','Lec-4 Vitamins','Lec-5 Water-Soluble Vitamins','Lec-6 Water soluble Vitamins P2'
+            ])}]},
+            {name:'🩺 Medicine',subjects:[{id:'nt_medicine',name:'Medicine',lectures:makeLectureList([
+                'Lec-1 Hypovolemia and hypervolemia','Lec-2 Sodium Level Abnormalities','Lec-3 Obesity','Lec-4 Malnutrition and underweight','Lec-5 Wilson’s Disease'
+            ])}]},
+            {name:'🔪 Surgery',subjects:[{id:'nt_surgery',name:'Surgery',lectures:makeLectureList([
+                'Lec -1 PATHOPHYSIOLOGY OF FLUID BALANCE','Lec-2 Gangrene','Lec-3 Electrolytes and volume abnormalities'
+            ])}]}
+        ]},
+        rm:{title:'RM | Research Methodology',icon:'📊',type:'standalone',sections:[
+            {name:'📚 Theoretical',subjects:[{id:'rm_theory',name:'Theoretical',lectures:makeLectureList([
+                'Lec-1 Introduction to Biostatistics','Lec-2 Introduction to Mathematical presentation of data','Lec-3&4 Graphical presentation of data','Lec-5 Analytic Sampling and Sampling Techniques','Lec-6 Probability in Medical Research and Clinical Decision Making','Lec-7 probability distribution','Lec-8 Estimation','Lec-9 Testing Hypothesis (Inferential Analysis)','Lec10 T-Test','Lec-11 Correlation and Regression Analysis','Lec-12 Chi square Test | ملحق','Lec-13 Hypothesis Testing and Z Distribution','Lec-14 Anova'
+            ])}]}
+        ]}
+    };
+    function readJSON(key, fallback) { try { const v=JSON.parse(localStorage.getItem(key)); return v ?? fallback; } catch(e) { return fallback; } }
+    let modulesData = readJSON('stage3_custom_structure', null) || JSON.parse(JSON.stringify(defaultModules));
+    let savedState = readJSON('stage3_med_progress_dynamic', {});
+    let lectureNotes = readJSON('stage3_lecture_notes', {});
+    // One-time update: show only RM and NT by default while keeping add/edit/delete features.
+    if (localStorage.getItem('stage3_rm_nt_midterm_v1') !== 'done') {
+        ['id','ca'].forEach(key => { if (modulesData[key]) delete modulesData[key]; });
+        modulesData.nt = JSON.parse(JSON.stringify(defaultModules.nt));
+        modulesData.rm = JSON.parse(JSON.stringify(defaultModules.rm));
+        ['nt_comm','nt_biochem','nt_medicine','nt_surgery','rm_theory','rm_tbl'].forEach(id => { delete savedState[id]; });
+        Object.keys(lectureNotes).forEach(key => { if (/^(nt_comm|nt_biochem|nt_medicine|nt_surgery|rm_theory|rm_tbl)_/.test(key)) delete lectureNotes[key]; });
+        localStorage.setItem('stage3_rm_nt_midterm_v1', 'done');
+        localStorage.setItem('stage3_custom_structure', JSON.stringify(modulesData));
+    }
+    let activeModule = modulesData.nt ? 'nt' : (Object.keys(modulesData)[0] || 'nt');
+
+    function setTheme(themeName) {
+        if (themeName === 'burgundy') document.documentElement.removeAttribute('data-theme');
+        else document.documentElement.setAttribute('data-theme', themeName);
+        localStorage.setItem('app_color_theme', themeName);
+        document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.toggle('active', btn.getAttribute('onclick').includes(themeName)));
+    }
+    function toggleMode() {
+        const isDark=document.documentElement.getAttribute('data-mode')==='dark';
+        if(isDark){document.documentElement.removeAttribute('data-mode');document.getElementById('modeBtn').innerText='☀️ فاتح';localStorage.setItem('app_mode','light');}
+        else{document.documentElement.setAttribute('data-mode','dark');document.getElementById('modeBtn').innerText='🌙 غامق';localStorage.setItem('app_mode','dark');}
+    }
+    setTheme(localStorage.getItem('app_color_theme') || 'burgundy');
+    if(localStorage.getItem('app_mode')==='dark'){document.documentElement.setAttribute('data-mode','dark');document.getElementById('modeBtn').innerText='🌙 غامق';}
+    function saveStructure(){localStorage.setItem('stage3_custom_structure',JSON.stringify(modulesData));localStorage.setItem('stage3_med_progress_dynamic',JSON.stringify(savedState));localStorage.setItem('stage3_lecture_notes',JSON.stringify(lectureNotes));renderNav();render();}
+    function switchModule(modKey){activeModule=modKey;renderNav();render();}
+    function renderNav(){const nav=document.getElementById('modulesNav');nav.innerHTML='';Object.keys(modulesData).forEach(key=>{const mod=modulesData[key];const btn=document.createElement('button');btn.className=`module-tab ${key===activeModule?'active':''}`;btn.onclick=()=>switchModule(key);btn.innerHTML=`<span>${escapeHTML(mod.icon||'📑')}</span> <span>${escapeHTML(mod.title)}</span>`;nav.appendChild(btn);});}
+    function escapeHTML(value){return String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+    function calculateOverallProgress(){
+        function updateModuleProgress(moduleKey, percentId, fillId){
+            let total=0, completed=0;
+            const module=modulesData[moduleKey];
+            if(module){(module.sections||[]).forEach(sec=>(sec.subjects||[]).forEach(sub=>{const state=savedState[sub.id]||{};(sub.lectures||[]).forEach((_,idx)=>{total++;if(state[idx])completed++;});}));}
+            const percent=total?Math.round(completed/total*100):0;
+            const percentEl=document.getElementById(percentId), fillEl=document.getElementById(fillId);
+            if(percentEl)percentEl.innerText=`${percent}% (${completed}/${total})`;
+            if(fillEl)fillEl.style.width=`${percent}%`;
+        }
+        updateModuleProgress('rm','rmPercent','rmFill');
+        updateModuleProgress('nt','ntPercent','ntFill');
+    }
+    function render(){const container=document.getElementById('modulesContainer');container.innerHTML='';if(!modulesData[activeModule])activeModule=Object.keys(modulesData)[0]||'';if(!activeModule){container.innerHTML='<p style="text-align:center;padding:20px;">لا توجد مواد حالياً. يمكنك إضافة سستم أو مادة منفصلة جديدة!</p>';calculateOverallProgress();return;}const modData=modulesData[activeModule];const modEl=document.createElement('div');const modHeader=document.createElement('div');modHeader.style.cssText='display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px;';modHeader.innerHTML=`<h2 style="color:var(--primary);font-size:1.35rem;display:flex;align-items:center;gap:8px;"><span>${escapeHTML(modData.icon||'')} ${escapeHTML(modData.title)}</span><span class="edit-icon" onclick="editModuleName('${activeModule}')" title="تعديل الاسم">✏️</span></h2><div class="module-header-actions"><button class="btn-small" onclick="addSectionToModule('${activeModule}')">＋ إضافة قسم نظري / عملي</button><button class="btn-small" style="color:var(--pending-red);" onclick="deleteModule('${activeModule}')">🗑️ حذف هذا ${modData.type==='standalone'?'المادة':'السستم'}</button></div>`;modEl.appendChild(modHeader);
+        (modData.sections||[]).forEach((sec,secIdx)=>{const secTitle=document.createElement('div');secTitle.className='section-title';secTitle.innerHTML=`<span>${escapeHTML(sec.name)}</span><button class="btn-small" onclick="addSubjectToSection('${activeModule}',${secIdx})">+ إضافة مادة</button>`;modEl.appendChild(secTitle);const grid=document.createElement('div');grid.className='subjects-grid';(sec.subjects||[]).forEach((sub,subIdx)=>{if(!savedState[sub.id])savedState[sub.id]={};let completedCount=0;const lectures=sub.lectures||[];lectures.forEach((_,idx)=>{if(savedState[sub.id][idx])completedCount++;});const pendingCount=lectures.length-completedCount;const card=document.createElement('div');card.className='subject-card';card.id=`card-${sub.id}`;card.innerHTML=`<div class="subject-header" onclick="toggleCard('${sub.id}')"><div class="subject-title"><span>${escapeHTML(sub.name)}</span><span class="edit-icon" onclick="event.stopPropagation();editSubjectName('${activeModule}',${secIdx},${subIdx})" title="تعديل اسم المادة">✏️</span></div><div class="subject-stats"><span class="badge badge-completed">مكتمل: ${completedCount}</span><span class="badge badge-pending">متراكم: ${pendingCount}</span></div></div><div class="lectures-list">${lectures.map((lec,idx)=>{const isDone=!!savedState[sub.id][idx];const noteKey=`${sub.id}_${idx}`;const noteText=lectureNotes[noteKey]||'';return `<div class="lecture-item-wrapper"><div class="lecture-item"><div class="lecture-info"><input type="checkbox" class="lecture-checkbox" ${isDone?'checked':''} onchange="toggleLecture('${sub.id}',${idx})"><span class="lecture-title ${isDone?'done':''}">${escapeHTML(lec)}</span><span class="edit-icon" onclick="editLectureName('${activeModule}',${secIdx},${subIdx},${idx})" title="تعديل اسم المحاضرة">✏️</span></div><div class="lecture-actions"><button class="btn-small" style="font-size:.75rem;padding:2px 7px;" onclick="addNote('${sub.id}',${idx})">📝 ملاحظة</button><span class="status-tag ${isDone?'done':'pending'}">${isDone?'مكتملة ✓':'متراكمة ✗'}</span><button class="delete-btn" onclick="deleteSingleLecture('${activeModule}',${secIdx},${subIdx},${idx})" title="حذف المحاضرة">🗑️</button></div></div>${noteText?`<div class="lecture-note-box"><span>📌 ${escapeHTML(noteText)}</span><button class="delete-btn" style="color:var(--pending-red);" onclick="deleteNote('${sub.id}',${idx})" title="مسح الملاحظة">✕</button></div>`:''}</div>`;}).join('')}<div class="card-controls"><button class="btn-small" onclick="addLecture('${activeModule}',${secIdx},${subIdx})">+ إضافة محاضرة جديدة</button><button class="btn-small" style="color:var(--pending-red);margin-right:auto;" onclick="deleteSubject('${activeModule}',${secIdx},${subIdx})">🗑️ حذف المادة بالكامل</button></div></div>`;grid.appendChild(card);});modEl.appendChild(grid);});container.appendChild(modEl);calculateOverallProgress();}
+    function toggleCard(subId){const card=document.getElementById(`card-${subId}`);if(card)card.classList.toggle('active');}
+    function preserveOpenCards(){return Array.from(document.querySelectorAll('.subject-card.active')).map(c=>c.id);}
+    function restoreOpenCards(ids){ids.forEach(id=>{const card=document.getElementById(id);if(card)card.classList.add('active');});}
+    function toggleLecture(subId,idx){if(!savedState[subId])savedState[subId]={};savedState[subId][idx]=!savedState[subId][idx];const ids=preserveOpenCards();saveStructure();restoreOpenCards(ids);}
+    function editModuleName(modKey){const cur=modulesData[modKey].title;const val=prompt('تعديل اسم السستم / المادة المنفصلة:',cur);if(val&&val.trim()){modulesData[modKey].title=val.trim();saveStructure();}}
+    function editSubjectName(modKey,secIdx,subIdx){const sub=modulesData[modKey].sections[secIdx].subjects[subIdx];const val=prompt('تعديل اسم المادة:',sub.name);if(val&&val.trim()){sub.name=val.trim();saveStructure();}}
+    function editLectureName(modKey,secIdx,subIdx,lecIdx){const sub=modulesData[modKey].sections[secIdx].subjects[subIdx];const val=prompt('تعديل اسم المحاضرة:',sub.lectures[lecIdx]);if(val&&val.trim()){sub.lectures[lecIdx]=val.trim();saveStructure();}}
+    function addNote(subId,idx){const key=`${subId}_${idx}`;const val=prompt('أدخل الملاحظة الخاصة بهذه المحاضرة:',lectureNotes[key]||'');if(val!==null){if(!val.trim())delete lectureNotes[key];else lectureNotes[key]=val.trim();const ids=preserveOpenCards();saveStructure();restoreOpenCards(ids);}}
+    function deleteNote(subId,idx){delete lectureNotes[`${subId}_${idx}`];const ids=preserveOpenCards();saveStructure();restoreOpenCards(ids);}
+    function deleteSingleLecture(modKey,secIdx,subIdx,lecIdx){const sub=modulesData[modKey].sections[secIdx].subjects[subIdx];if(!confirm('هل تريد حذف هذه المحاضرة؟'))return;sub.lectures.splice(lecIdx,1);if(savedState[sub.id]){const next={};Object.keys(savedState[sub.id]).forEach(k=>{const n=Number(k);if(n<lecIdx)next[n]=savedState[sub.id][k];else if(n>lecIdx)next[n-1]=savedState[sub.id][k];});savedState[sub.id]=next;}const notes={};Object.keys(lectureNotes).forEach(k=>{if(!k.startsWith(sub.id+'_'))notes[k]=lectureNotes[k];else{const n=Number(k.slice(sub.id.length+1));if(n<lecIdx)notes[k]=lectureNotes[k];else if(n>lecIdx)notes[`${sub.id}_${n-1}`]=lectureNotes[k];}});lectureNotes=notes;const ids=preserveOpenCards();saveStructure();restoreOpenCards(ids);}
+    function addLecture(modKey,secIdx,subIdx){const sub=modulesData[modKey].sections[secIdx].subjects[subIdx];const nextNum=sub.lectures.length+1;const label=prompt('اسم المحاضرة الجديدة:',`Lec-${nextNum}`);if(label&&label.trim()){sub.lectures.push(label.trim());const ids=preserveOpenCards();saveStructure();restoreOpenCards(ids);}}
+    function deleteSubject(modKey,secIdx,subIdx){if(confirm('هل أنت متأكد من حذف هذه المادة؟')){const sub=modulesData[modKey].sections[secIdx].subjects[subIdx];delete savedState[sub.id];Object.keys(lectureNotes).forEach(k=>{if(k.startsWith(sub.id+'_'))delete lectureNotes[k];});modulesData[modKey].sections[secIdx].subjects.splice(subIdx,1);saveStructure();}}
+    function deleteModule(modKey){const mod=modulesData[modKey];const typeName=mod&&mod.type==='standalone'?'المادة المنفصلة':'السستم';if(confirm(`هل أنت متأكد من حذف هذا ${typeName} بالكامل؟`)){(mod.sections||[]).forEach(sec=>(sec.subjects||[]).forEach(sub=>{delete savedState[sub.id];Object.keys(lectureNotes).forEach(k=>{if(k.startsWith(sub.id+'_'))delete lectureNotes[k];});}));delete modulesData[modKey];activeModule=Object.keys(modulesData)[0]||'';saveStructure();}}
+    function addSubjectToSection(modKey,secIdx){const name=prompt('أدخل اسم المادة الجديدة:');if(name&&name.trim()){modulesData[modKey].sections[secIdx].subjects.push({id:'sub_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),name:name.trim(),lectures:makeList('Lec',5)});saveStructure();}}
+    function addSectionToModule(modKey){const name=prompt('اسم القسم الجديد (مثال: 🔬 Practical / TBL):','🔬 Practical / TBL');if(name&&name.trim()){modulesData[modKey].sections.push({name:name.trim(),subjects:[]});saveStructure();}}
+    function openSystemModal(){document.getElementById('systemModal').style.display='flex';}function openStandaloneModal(){document.getElementById('standaloneModal').style.display='flex';}function closeModal(id){document.getElementById(id).style.display='none';}
+    function saveNewSystem(){const sysName=document.getElementById('sysName').value.trim();const subName=document.getElementById('sysSubName').value.trim()||'المادة الأولى';const count=Math.max(1,Math.min(1000,parseInt(document.getElementById('sysLecCount').value,10)||5));if(!sysName)return alert('يرجى كتابة اسم السستم');const stamp=Date.now();const key='sys_'+stamp;modulesData[key]={title:sysName,icon:'🫀',type:'system',sections:[{name:'📚 النظري',subjects:[{id:'sub_'+stamp,name:subName,lectures:makeList('Lec',count)}]},{name:'🔬 العملي & TBL',subjects:[]}]};document.getElementById('sysName').value='';document.getElementById('sysSubName').value='';closeModal('systemModal');activeModule=key;saveStructure();}
+    function saveNewStandalone(){const name=document.getElementById('standaloneName').value.trim();const tCount=Math.max(0,Math.min(1000,parseInt(document.getElementById('standaloneTheoryCount').value,10)||0));const pCount=Math.max(0,Math.min(1000,parseInt(document.getElementById('standalonePracCount').value,10)||0));if(!name)return alert('يرجى كتابة اسم المادة');if(tCount===0&&pCount===0)return alert('أدخل عدد محاضرات النظري أو العملي على الأقل');const stamp=Date.now();const sections=[];if(tCount>0)sections.push({name:'📚 النظري',subjects:[{id:'sub_t_'+stamp,name:name+' (نظري)',lectures:makeList('Lec',tCount)}]});if(pCount>0)sections.push({name:'🔬 العملي / TBL',subjects:[{id:'sub_p_'+stamp,name:name+' (عملي)',lectures:makeList('P',pCount)}]});const key='standalone_'+stamp;modulesData[key]={title:name,icon:'📊',type:'standalone',sections};document.getElementById('standaloneName').value='';closeModal('standaloneModal');activeModule=key;saveStructure();}
+    function exportToPDF(){document.querySelectorAll('.subject-card').forEach(card=>card.classList.add('active'));window.print();}
+    function resetToDefault(){if(confirm('هل ترغب في إعادة ضبط الموقع إلى القائمة الافتراضية للمرحلة الثالثة؟ سيتم حذف تقدمك وملاحظاتك المحفوظة.')){localStorage.removeItem('stage3_custom_structure');localStorage.removeItem('stage3_med_progress_dynamic');localStorage.removeItem('stage3_lecture_notes');modulesData=JSON.parse(JSON.stringify(defaultModules));savedState={};lectureNotes={};activeModule='nt';saveStructure();}}
+    renderNav();render();
+
+</script>
+</body>
+</html>
