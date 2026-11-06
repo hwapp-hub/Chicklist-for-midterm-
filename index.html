@@ -154,10 +154,10 @@
     const defaultModules = {
         nt:{title:'NT | Nutrition',icon:'🥗',type:'system',sections:[
             {name:'📚 Community Medicine',subjects:[{id:'nt_comm',name:'Community Medicine',lectures:makeLectureList([
-                'Lec-1 Introduction to nutrition','Lec-2 Vitamins and mineral P1','Lec-3 Vitamins and mineral P2','Lec-4 Organic Nutrient','Lec-5 Energy balance'
+                'Lec-1 Introduction to nutrition','Lec-2 Vitamins and mineral P1','Lec-3 Vitamins and mineral P2','Lec-4 Organic Nutrient','Lec-5 Energy balance','Lec-6 TBL Energy'
             ])}]},
             {name:'🧪 Biochemistry',subjects:[{id:'nt_biochem',name:'Biochemistry',lectures:makeLectureList([
-                'Lec-1 Dyslipidemia I','Lec-2 Dyslipidemia II','Lec-3 Dyslipidemia Biochemical cardiovascular risk markers','Lec-4 Vitamins','Lec-5 Water-Soluble Vitamins','Lec-6 Water soluble Vitamins P2'
+                'Lec-1 Dyslipidemia I','Lec-2 Dyslipidemia II','Lec-3 Vitamins','Lec-4 Water-Soluble Vitamins','Lec-5 Water soluble Vitamins P2'
             ])}]},
             {name:'🩺 Medicine',subjects:[{id:'nt_medicine',name:'Medicine',lectures:makeLectureList([
                 'Lec-1 Hypovolemia and hypervolemia','Lec-2 Sodium Level Abnormalities','Lec-3 Obesity','Lec-4 Malnutrition and underweight','Lec-5 Wilson’s Disease'
@@ -186,6 +186,46 @@
         localStorage.setItem('stage3_rm_nt_midterm_v1', 'done');
         localStorage.setItem('stage3_custom_structure', JSON.stringify(modulesData));
     }
+    // Apply the requested NT lecture updates once, preserving the user's other edits and progress.
+    if (localStorage.getItem('stage3_nt_lecture_update_v2') !== 'done') {
+        const comm = (modulesData.nt?.sections || []).flatMap(sec => sec.subjects || []).find(sub => sub.id === 'nt_comm');
+        if (comm && !(comm.lectures || []).some(lec => /TBL Energy/i.test(lec))) {
+            comm.lectures = comm.lectures || [];
+            comm.lectures.push('Lec-6 TBL Energy');
+        }
+
+        const bio = (modulesData.nt?.sections || []).flatMap(sec => sec.subjects || []).find(sub => sub.id === 'nt_biochem');
+        if (bio && bio.lectures && bio.lectures[2] && bio.lectures[2].includes('Dyslipidemia Biochemical cardiovascular risk markers')) {
+            bio.lectures.splice(2, 1);
+            bio.lectures = bio.lectures.map((lec, idx) => lec.replace(/^Lec\s*-?\s*\d+/, `Lec-${idx + 1}`));
+
+            const oldState = savedState[bio.id] || {};
+            const shiftedState = {};
+            Object.keys(oldState).forEach(key => {
+                const index = Number(key);
+                if (index < 2) shiftedState[index] = oldState[key];
+                else if (index > 2) shiftedState[index - 1] = oldState[key];
+            });
+            savedState[bio.id] = shiftedState;
+
+            const shiftedNotes = {};
+            Object.keys(lectureNotes).forEach(key => {
+                if (!key.startsWith(bio.id + '_')) {
+                    shiftedNotes[key] = lectureNotes[key];
+                    return;
+                }
+                const index = Number(key.slice(bio.id.length + 1));
+                if (index < 2) shiftedNotes[key] = lectureNotes[key];
+                else if (index > 2) shiftedNotes[`${bio.id}_${index - 1}`] = lectureNotes[key];
+            });
+            lectureNotes = shiftedNotes;
+        }
+        localStorage.setItem('stage3_nt_lecture_update_v2', 'done');
+        localStorage.setItem('stage3_custom_structure', JSON.stringify(modulesData));
+        localStorage.setItem('stage3_med_progress_dynamic', JSON.stringify(savedState));
+        localStorage.setItem('stage3_lecture_notes', JSON.stringify(lectureNotes));
+    }
+
     let activeModule = modulesData.nt ? 'nt' : (Object.keys(modulesData)[0] || 'nt');
 
     function setTheme(themeName) {
